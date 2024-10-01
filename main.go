@@ -1,22 +1,39 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
-func main() {
-	http.HandleFunc("/", homeHandler)
+// Define a template cache
+var tmpl = template.Must(template.ParseGlob("templates/*.html"))
 
-	// Start the web server on port 8080
-	http.ListenAndServe(":8080", nil)
-}
-
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/index.html")
+// HomePage handler
+func HomePage(w http.ResponseWriter, r *http.Request) {
+	err := tmpl.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
 	}
-	tmpl.Execute(w, nil)
+}
+
+func main() {
+	r := mux.NewRouter()
+
+	// Set up route for home page
+	r.HandleFunc("/", HomePage)
+
+	// Serve static files (CSS, JS, images, etc.)
+	fs := http.FileServer(http.Dir("./static/"))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+
+	// Start the server
+	fmt.Println("Starting server on :8080")
+	err := http.ListenAndServe(":8080", r)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
