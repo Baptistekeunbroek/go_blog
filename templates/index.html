@@ -2,20 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>My Go Blog</title>
+    <title>Blog App</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Blog</h1>
-    </header>
-    <main>
-        <p>This is the homepage of my Go-powered blog.</p>
-    </main>
-    <footer>
-        <p>© 2024 My Go Blog</p>
-    </footer>
+    <h1>Blog App</h1>
+
+    <!-- Form to create a new post -->
+    <div>
+        <h2>Create a New Post</h2>
+        <form id="create-post-form">
+            <input type="text" id="title" placeholder="Title" required>
+            <input type="text" id="author" placeholder="Author" required>
+            <textarea id="content" placeholder="Content" required></textarea>
+            <button type="submit">Create Post</button>
+        </form>
+    </div>
+
+    <!-- Section to display posts -->
+    <div>
+        <h2>All Posts</h2>
+        <div id="posts"></div>
+    </div>
+
+    <!-- Section to update a post -->
+    <div>
+        <h2>Update Post</h2>
+        <form id="update-post-form">
+            <input type="text" id="update-id" placeholder="Post ID" required>
+            <input type="text" id="update-title" placeholder="New Title" required>
+            <input type="text" id="update-author" placeholder="New Author" required>
+            <textarea id="update-content" placeholder="New Content" required></textarea>
+            <button type="submit">Update Post</button>
+        </form>
+    </div>
+
+    <!-- Section to delete a post -->
+    <div>
+        <h2>Delete Post</h2>
+        <form id="delete-post-form">
+            <input type="text" id="delete-id" placeholder="Post ID" required>
+            <button type="submit">Delete Post</button>
+        </form>
+    </div>
+
+    <script src="../static/script.js"></script>
 </body>
 </html>
