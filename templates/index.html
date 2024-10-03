@@ -7,17 +7,24 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <h1>My Social Media</h1>
-
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">BK Blog</a>
+            <ul class="nav-links">
+                <li><a href="#" onclick="fetchPosts()">Home</a></li>
+                <li><a href="#" onclick="showCreatePostForm()">Create Post</a></li>
+                <li><a href="#" onclick="showAboutPage()">About</a></li>
+            </ul>
+        </div>
+    </nav>
     <!-- Form to create a new post -->
     <div class="create-post-section">
-        <h2>Create a New Post</h2>
-        <form id="create-post-form" enctype="multipart/form-data">
-            <input type="text" id="title" placeholder="Title" required>
-            <input type="text" id="author" placeholder="Author" required>
-            <textarea id="content" placeholder="What's on your mind?" required></textarea>
-            <input type="file" id="image" accept="image/*" required>
-            <button type="submit">Create Post</button>
+        <form class="create-post-form" id="create-post-form" enctype="multipart/form-data">
+            <input class="input-create" type="text" id="title" placeholder="Title" required>
+            <input class="input-create" type="text" id="author" placeholder="Author" required>
+            <textarea class="input-create" id="content" placeholder="What's on your mind?" required></textarea>
+            <input class="input-create" type="file" id="image" accept="image/*" required>
+            <button class="input-create" type="submit">Create Post</button>
         </form>
     </div>
 

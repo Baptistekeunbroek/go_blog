@@ -1,4 +1,3 @@
-// Fetch and display all posts
 function fetchPosts() {
   fetch("/posts")
     .then((response) => {
@@ -13,8 +12,13 @@ function fetchPosts() {
       const postsContainer = document.getElementById("posts");
       postsContainer.innerHTML = ""; // Clear existing posts
 
-      for (const id in posts) {
-        const post = posts[id];
+      // Convert posts object to an array and sort by created date descending
+      const sortedPosts = Object.values(posts).sort(
+        (a, b) => new Date(b.created) - new Date(a.created)
+      );
+
+      // Loop through sorted posts and display them
+      sortedPosts.forEach((post) => {
         postsContainer.innerHTML += `
           <div class="post-card">
             <div class="post-content">
@@ -27,12 +31,12 @@ function fetchPosts() {
               ).toLocaleString()}</small></p>
             </div>
             <div class="post-actions">
-              <button onclick="editPost('${id}')">Edit</button>
-              <button onclick="deletePost('${id}')">Delete</button>
+              <button onclick="editPost('${post.id}')">Edit</button>
+              <button onclick="deletePost('${post.id}')">Delete</button>
             </div>
           </div>
         `;
-      }
+      });
     })
     .catch((error) => {
       console.error("Error fetching posts:", error);
