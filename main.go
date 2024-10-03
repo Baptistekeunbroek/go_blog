@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go_blog/handlers" // Importing your handlers
+	"go_blog/handlers" // Ensure this matches your directory structure
 	"log"
 	"net/http"
 

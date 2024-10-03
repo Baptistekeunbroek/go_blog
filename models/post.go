@@ -8,5 +8,6 @@ type Post struct {
 	Title   string
 	Content string
 	Author  string
+	Image   string
 	Created time.Time
 }

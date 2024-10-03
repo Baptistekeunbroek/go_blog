@@ -3,48 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog App</title>
+    <title>Blog Social Media</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <h1>Blog App</h1>
+    <h1>My Social Media</h1>
 
     <!-- Form to create a new post -->
-    <div>
+    <div class="create-post-section">
         <h2>Create a New Post</h2>
-        <form id="create-post-form">
+        <form id="create-post-form" enctype="multipart/form-data">
             <input type="text" id="title" placeholder="Title" required>
             <input type="text" id="author" placeholder="Author" required>
-            <textarea id="content" placeholder="Content" required></textarea>
+            <textarea id="content" placeholder="What's on your mind?" required></textarea>
+            <input type="file" id="image" accept="image/*" required>
             <button type="submit">Create Post</button>
         </form>
     </div>
 
     <!-- Section to display posts -->
-    <div>
-        <h2>All Posts</h2>
+    <div class="posts-section">
         <div id="posts"></div>
-    </div>
-
-    <!-- Section to update a post -->
-    <div>
-        <h2>Update Post</h2>
-        <form id="update-post-form">
-            <input type="text" id="update-id" placeholder="Post ID" required>
-            <input type="text" id="update-title" placeholder="New Title" required>
-            <input type="text" id="update-author" placeholder="New Author" required>
-            <textarea id="update-content" placeholder="New Content" required></textarea>
-            <button type="submit">Update Post</button>
-        </form>
-    </div>
-
-    <!-- Section to delete a post -->
-    <div>
-        <h2>Delete Post</h2>
-        <form id="delete-post-form">
-            <input type="text" id="delete-id" placeholder="Post ID" required>
-            <button type="submit">Delete Post</button>
-        </form>
     </div>
 
     <script src="../static/script.js"></script>
