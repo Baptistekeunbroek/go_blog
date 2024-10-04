@@ -12,6 +12,9 @@ function fetchPosts() {
       const postsContainer = document.getElementById("posts");
       postsContainer.innerHTML = ""; // Clear existing posts
 
+      // Get the username from local storage
+      const username = localStorage.getItem("username"); // Get the logged-in user's username
+
       // Convert posts object to an array and sort by created date descending
       const sortedPosts = Object.values(posts).sort(
         (a, b) => new Date(b.created) - new Date(a.created)
@@ -20,22 +23,27 @@ function fetchPosts() {
       // Loop through sorted posts and display them
       sortedPosts.forEach((post) => {
         postsContainer.innerHTML += `
-          <div class="post-card">
-            <div class="post-content">
-              <h3 class="post-title"><strong>${post.title}</strong></h3>
-              <p class="post-author">${post.author}</p>
-              <img src="${post.image}" alt="Post Image" class="post-image">
-              <p class="post-body">${post.content}</p>
-              <p class="post-date"><small>Created: ${new Date(
-                post.created
-              ).toLocaleString()}</small></p>
-            </div>
-            <div class="post-actions">
-              <button onclick="editPost('${post.id}')">Edit</button>
-              <button onclick="deletePost('${post.id}')">Delete</button>
-            </div>
-          </div>
-        `;
+                  <div class="post-card">
+                      <div class="post-content">
+                      <h3 class="post-title"> ${post.author}</h3>
+                          <h4 class="post-author">${post.title}</h4>
+                          
+                          <img src="${
+                            post.image
+                          }" alt="Post Image" class="post-image">
+                          <p class="post-body">${post.content}</p>
+                          <p class="post-date"><small>Created: ${new Date(
+                            post.created
+                          ).toLocaleString()}</small></p>
+                      </div>
+                      <div class="post-actions">
+                          <button onclick="editPost('${post.id}')">Edit</button>
+                          <button onclick="deletePost('${
+                            post.id
+                          }')">Delete</button>
+                      </div>
+                  </div>
+              `;
       });
     })
     .catch((error) => {
@@ -50,11 +58,20 @@ document
   .addEventListener("submit", function (e) {
     e.preventDefault();
 
+    // Get the username from local storage in user
+
+    if (!localStorage.getItem("user")) {
+      alert("You need to log in to create a post");
+      return;
+    } else {
+      username = JSON.parse(localStorage.getItem("user")).username;
+    }
+
     const formData = new FormData();
     formData.append("title", document.getElementById("title").value);
-    formData.append("author", document.getElementById("author").value);
+    formData.append("author", username); // Directly use the username from localStorage
     formData.append("content", document.getElementById("content").value);
-    formData.append("image", document.getElementById("image").files[0]); // Append image
+    formData.append("image", document.getElementById("image").files[0]);
 
     fetch("/posts", {
       method: "POST",
@@ -80,30 +97,24 @@ document
 
 // Update an existing post
 function editPost(id) {
-  // For simplicity, we can prompt the user for new data (replace with modal for better UX)
   const title = prompt("New Title:");
-  const author = prompt("New Author:");
   const content = prompt("New Content:");
   const image = document.createElement("input");
   image.type = "file";
   image.accept = "image/*";
 
-  // Display an image file selector
   image.onchange = function () {
     const formData = new FormData();
     if (title) formData.append("title", title);
-    if (author) formData.append("author", author);
     if (content) formData.append("content", content);
 
-    // If an image is selected, add it to the form data
     if (image.files.length > 0) {
       formData.append("image", image.files[0]);
     }
 
-    // Send the updated post data (text and image)
     fetch(`/posts/${id}`, {
       method: "PUT",
-      body: formData, // Use FormData to handle text and file uploads
+      body: formData,
     })
       .then((response) => {
         if (!response.ok) {
@@ -122,7 +133,6 @@ function editPost(id) {
       });
   };
 
-  // Trigger the file selector
   image.click();
 }
 

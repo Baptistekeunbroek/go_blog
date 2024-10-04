@@ -10,4 +10,5 @@ type Post struct {
 	Author  string
 	Image   string
 	Created time.Time
+	UserID  string
 }

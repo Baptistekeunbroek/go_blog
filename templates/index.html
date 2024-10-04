@@ -11,9 +11,9 @@
         <div class="container">
             <a href="/" class="logo">BK Blog</a>
             <ul class="nav-links">
-                <li><a href="#" onclick="fetchPosts()">Home</a></li>
+                <li><a href="/" >Home</a></li>
                 <li><a href="#" onclick="showCreatePostForm()">Create Post</a></li>
-                <li><a href="#" onclick="showAboutPage()">About</a></li>
+                <li><a href="/login">Login</a></li>
             </ul>
         </div>
     </nav>
@@ -21,7 +21,6 @@
     <div class="create-post-section">
         <form class="create-post-form" id="create-post-form" enctype="multipart/form-data">
             <input class="input-create" type="text" id="title" placeholder="Title" required>
-            <input class="input-create" type="text" id="author" placeholder="Author" required>
             <textarea class="input-create" id="content" placeholder="What's on your mind?" required></textarea>
             <input class="input-create" type="file" id="image" accept="image/*" required>
             <button class="input-create" type="submit">Create Post</button>
