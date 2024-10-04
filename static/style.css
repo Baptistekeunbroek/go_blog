@@ -9,6 +9,15 @@ h1 {
     text-align: center;
 }
 
+.username-display{
+    background-color: #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Profile image size */
+    height: 50px; /* Profile image size */
+    border-radius: 50%; /* Circular profile image */
+}
 /* Navbar Styles */
 .navbar {
     background-color: white; /* Dark background */
@@ -60,17 +69,34 @@ h1 {
 
 .create-post-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: white;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     justify-content: center;
     border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
     gap: 5px;
     width: 600px;
     align-items: center;
 }
-.input-create{
+.input-create-description-container {
     margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: none;
+    background-color: #888;
+    color: white;
+}
+.input-create-description {
+    border-radius: 20px;
+    border: none;
+    background-color: #c4c4c4;
+}
+.input-create-description::placeholder{
+    color: rgb(110, 110, 110);
 }
 
 .posts-section {

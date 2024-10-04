@@ -16,7 +16,6 @@ import (
 
 type Post struct {
 	ID      string `json:"id"`
-	Title   string `json:"title"`
 	Author  string `json:"author"`
 	Content string `json:"content"`
 	Image   string `json:"image"`
@@ -68,12 +67,11 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Extract form fields
-	title := r.FormValue("title")
 	author := r.FormValue("author") // Now this will be set from localStorage correctly
 	content := r.FormValue("content")
 
 	// Log to ensure the values are correct
-	log.Printf("Title: %s, Author: %s, Content: %s", title, author, content)
+	log.Printf("Author: %s, Content: %s", author, content)
 
 	// Handle image upload via Cloudinary (same as before)
 	file, _, err := r.FormFile("image")
@@ -95,7 +93,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	// Create a new post with the Cloudinary image URL
 	post := Post{
 		ID:      uuid.New().String(),
-		Title:   title,
 		Content: content,
 		Author:  author, // Now correctly set from localStorage
 		Image:   uploadResult.SecureURL,
@@ -131,9 +128,6 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Update the fields
-	if title := r.FormValue("title"); title != "" {
-		post.Title = title
-	}
 	if author := r.FormValue("author"); author != "" {
 		post.Author = author
 	}

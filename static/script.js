@@ -13,7 +13,6 @@ function fetchPosts() {
       postsContainer.innerHTML = ""; // Clear existing posts
 
       // Get the username from local storage
-      const username = localStorage.getItem("username"); // Get the logged-in user's username
 
       // Convert posts object to an array and sort by created date descending
       const sortedPosts = Object.values(posts).sort(
@@ -26,7 +25,6 @@ function fetchPosts() {
                   <div class="post-card">
                       <div class="post-content">
                       <h3 class="post-title"> ${post.author}</h3>
-                          <h4 class="post-author">${post.title}</h4>
                           
                           <img src="${
                             post.image
@@ -58,7 +56,7 @@ document
   .addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Get the username from local storage in user
+    let username;
 
     if (!localStorage.getItem("user")) {
       alert("You need to log in to create a post");
@@ -68,7 +66,6 @@ document
     }
 
     const formData = new FormData();
-    formData.append("title", document.getElementById("title").value);
     formData.append("author", username); // Directly use the username from localStorage
     formData.append("content", document.getElementById("content").value);
     formData.append("image", document.getElementById("image").files[0]);
@@ -97,7 +94,6 @@ document
 
 // Update an existing post
 function editPost(id) {
-  const title = prompt("New Title:");
   const content = prompt("New Content:");
   const image = document.createElement("input");
   image.type = "file";
@@ -105,7 +101,6 @@ function editPost(id) {
 
   image.onchange = function () {
     const formData = new FormData();
-    if (title) formData.append("title", title);
     if (content) formData.append("content", content);
 
     if (image.files.length > 0) {

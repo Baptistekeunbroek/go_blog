@@ -20,8 +20,12 @@
     <!-- Form to create a new post -->
     <div class="create-post-section">
         <form class="create-post-form" id="create-post-form" enctype="multipart/form-data">
-            <input class="input-create" type="text" id="title" placeholder="Title" required>
-            <textarea class="input-create" id="content" placeholder="What's on your mind?" required></textarea>
+            <div class="username-display">
+            <span  id="username-display"></span>
+            </div>
+            <div class="input-create-description-container">
+            <input class="input-create-description" id="content" placeholder="Share something..." required></input>
+            </div>
             <input class="input-create" type="file" id="image" accept="image/*" required>
             <button class="input-create" type="submit">Create Post</button>
         </form>
@@ -33,5 +37,10 @@
     </div>
 
     <script src="../static/script.js"></script>
+    <script>
+        // JavaScript to set the username dynamically
+        const username = JSON.parse(localStorage.getItem("user")).username; // Replace this with the actual method to get the username
+        document.getElementById('username-display').innerText = username;
+    </script>
 </body>
 </html>
