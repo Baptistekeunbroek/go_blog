@@ -11,9 +11,9 @@
         <div class="container">
             <a href="/" class="logo">BK Blog</a>
             <ul class="nav-links">
-                <li><a href="/" >Home</a></li>
-                <li><a href="#" onclick="showCreatePostForm()">Create Post</a></li>
-                <li><a href="/login">Login</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login" id="login-link">Login</a></li>
+                <li><a href="/profile" id="profile-link" style="display:none;">Profile</a></li>
             </ul>
         </div>
     </nav>
@@ -41,6 +41,19 @@
         // JavaScript to set the username dynamically
         const username = JSON.parse(localStorage.getItem("user")).username; // Replace this with the actual method to get the username
         document.getElementById('username-display').innerText = username;
+    </script>
+    <script>
+        // Check if the user is logged in and update the navbar accordingly
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const profileLink = document.getElementById('profile-link');
+            const loginLink = document.getElementById('login-link');
+    
+            if (user) {
+                profileLink.style.display = 'block'; // Show profile link
+                loginLink.style.display = 'none'; // Hide login link
+            }
+        });
     </script>
 </body>
 </html>

@@ -8,14 +8,16 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="container">
-            <a href="/" class="logo">BK Blog</a>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="#" onclick="showCreatePostForm()">Create Post</a></li>
-                <li><a href="/login">Login</a></li>
-            </ul>
-        </div>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">BK Blog</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/login" id="login-link">Login</a></li>
+                    <li><a href="/profile" id="profile-link" style="display:none;">Profile</a></li>
+                </ul>
+            </div>
+        </nav>
     </nav>
     <h1>Register</h1>
     <form id="register-form">

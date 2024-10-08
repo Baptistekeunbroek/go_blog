@@ -5,9 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../static/style.css"> <!-- Optional: Link to your CSS -->
+    <link rel="stylesheet" href="../static/style.css"> <!-- Link to your CSS -->
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">BK Blog</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login" id="login-link">Login</a></li>
+                <li><a href="/profile" id="profile-link" style="display:none;">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="login-container">
         <h2>Login</h2>
         <form id="loginForm">
@@ -20,36 +30,54 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Login</button>
+            <button>
+                <a href="/register">Register</a>
+            </button>
         </form>
         <div id="message"></div>
     </div>
 
     <script>
+        // This handles the login form submission
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent the form from submitting the default way
+            event.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
+            // Fetch request to your login API
             const response = await fetch('/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
             });
 
             const messageDiv = document.getElementById('message');
 
             if (response.ok) {
                 const data = await response.json();
-                messageDiv.textContent = data.message; // Show success message
+                messageDiv.textContent = data.message;
 
-                // Redirect or load user-specific content (example)
-                window.location.href = '/'; // Change to your home page
+                // Store the user's information in localStorage
+                localStorage.setItem('user', JSON.stringify({ username: data.username }));
+
+                // Redirect to the profile page
+                window.location.href = '/profile';
             } else {
                 const error = await response.json();
                 messageDiv.textContent = error.message; // Show error message
+            }
+        });
+
+        // Check if the user is logged in to update navbar links
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const profileLink = document.getElementById('profile-link');
+            const loginLink = document.getElementById('login-link');
+
+            if (user) {
+                profileLink.style.display = 'block'; // Show profile link
+                loginLink.style.display = 'none'; // Hide login link
             }
         });
     </script>
